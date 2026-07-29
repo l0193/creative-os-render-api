@@ -1,7 +1,13 @@
-import OpenAI from "openai";
+const apiKey = process.env.OPENAI_API_KEY
+  ?.replace(/[\u2028\u2029\r\n\t]/g, "")
+  .trim();
+
+if (!apiKey) {
+  throw new Error("OPENAI_API_KEY is missing.");
+}
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey,
 });
 
 export default async function handler(req, res) {
